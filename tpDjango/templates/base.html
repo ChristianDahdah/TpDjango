@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title} Acceuil {% endblock }</title>
+
+    <style>
+        table {
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            cursor: pointer;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: lavender;
+        }
+
+
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-8">
+            <h3>Albums</h3>
+        </div>
+
+        <div class="col4">
+            <form method="GET" action="/disks/recherche/">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="text" class="form-control" name="query" value=""/>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-4">
+            <table id="AlbumList">
+                {% for album in allAlbums %}
+                <tr>
+                    <td><a href="{% url 'album' id=album.id %}">{{ album.title }}</td>
+                </tr>
+                {% empty %}
+                <p>Aucun album</p>
+
+                {% endfor %}
+            </table>
+        </div>
+
+        {% block body %} {% endblock %}
+
+    </div>
+
+</div>
+
+{% block script %} {% endblock %}
+
+
+</body>
+</html>
